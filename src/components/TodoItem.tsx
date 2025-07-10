@@ -11,16 +11,26 @@ type Props = {
 
 export default function TodoItem({ todo, onToggle, onDelete }: Props) {
   return (
-    <div className="flex items-center justify-between border-b py-2">
-      <label className="flex items-center gap-2">
+    <div className="flex justify-between items-start border-b py-2">
+      <label className="flex items-start gap-2">
         <input
           type="checkbox"
           checked={todo.completed}
           onChange={() => onToggle(todo.id)}
         />
-        <span className={todo.completed ? 'line-through text-gray-400' : ''}>
-          {todo.text}
-        </span>
+        <div>
+          <div className={todo.completed ? 'line-through text-gray-400' : ''}>
+            {todo.text}
+          </div>
+          <div className="text-sm text-gray-500">
+            期限: {todo.dueDate} ｜ 優先度: <span className={
+              todo.priority === '高' ? 'text-red-500 font-bold' :
+              todo.priority === '中' ? 'text-yellow-600' : 'text-green-600'
+            }>
+              {todo.priority}
+            </span>
+          </div>
+        </div>
       </label>
       <button
         onClick={() => onDelete(todo.id)}
